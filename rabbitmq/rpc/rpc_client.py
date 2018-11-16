@@ -59,4 +59,4 @@ if __name__ == "__main__":
     for i in range(100):
         response = client.call(i)
         print "client.call({}) = {}".format(i, response)
-        time.sleep(1)
+        #time.sleep(1)

@@ -11,12 +11,14 @@
 -------------------------------------------------
 """
 import pika
+import time
 
 creds = pika.PlainCredentials('guest', 'guest')
 params = pika.ConnectionParameters(host="10.10.52.51",
                                    port=5672,
                                    virtual_host='/',
-                                   credentials=creds)
+                                   credentials=creds,
+                                   heartbeat=8)
 connection = pika.BlockingConnection(params)
 
 # connection = pika.BlockingConnection(pika.ConnectionParameters('10.10.52.51'))  # also work
@@ -37,6 +39,7 @@ def on_request(ch, method, props, body):
     response = f(n)
     print " [.] f({}) = {}".format(n, response)
 
+    # time.sleep(20)  # time longer heartbeat would miss connection
     ch.basic_publish(exchange='',
                      routing_key=props.reply_to,
                      properties=pika.BasicProperties(
