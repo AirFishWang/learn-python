@@ -12,7 +12,7 @@ class IndexHandler(tornado.web.RequestHandler):
 
 
 application = tornado.web.Application([
-    (r'/index', IndexHandler),
+    (r'/index', IndexHandler),               # open http://127.0.0.1:8080/index
 ])
 
 if __name__ == "__main__":
